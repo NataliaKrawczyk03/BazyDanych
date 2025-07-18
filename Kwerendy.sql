@@ -1,5 +1,22 @@
 USE firma2
 
+SELECT nazwisko, adres
+FROM rozliczenia.pracownicy;
+
+EXEC sp_rename 'rozliczenia.pensje.kwota', 'kwota_brutto', 'COLUMN';
+
+ALTER TABLE rozliczenia.pensje
+ADD kwota_netto decimal(10,2);
+
+UPDATE rozliczenia.pensje
+SET kwota_netto = ROUND(kwota_brutto * 0.75, 2);
+
+SELECT 
+    data_,
+    DATEPART(WEEKDAY, data_) AS dzien_tygodnia,
+    DATEPART(MONTH, data_) AS miesiac
+FROM rozliczenia.godziny;
+
 -- Wyświetl tylko id pracownika oraz jego nazwisko. 
 SELECT id_pracownika, nazwisko
 FROM ksiegowosc.pracownicy;
