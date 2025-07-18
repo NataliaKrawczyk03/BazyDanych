@@ -1,10 +1,10 @@
 --USE AdventureWorks2022
 --GO
 
---1.Napisz procedurê wypisuj¹c¹ do konsoli ci¹g Fibonacciego. Procedura musi przyjmowaæ jako argument wejœciowy liczbê n. Generowanie ci¹gu Fibonacciego musi zostaæ zaimplementowane jako osobna funkcja, wywo³ywana przez procedurê. 
+--1.Napisz procedurÃª wypisujÂ¹cÂ¹ do konsoli ciÂ¹g Fibonacciego. Procedura musi przyjmowaÃ¦ jako argument wejÅ“ciowy liczbÃª n. Generowanie ciÂ¹gu Fibonacciego musi zostaÃ¦ zaimplementowane jako osobna funkcja, wywoÂ³ywana przez procedurÃª. 
 
 --@cos deklaracja zmiennej
---dbo. database owner domyœlny schemat dla bazy danych
+--dbo. database owner domyÅ“lny schemat dla bazy danych
 
 /*
 --funkcja
@@ -18,7 +18,7 @@ BEGIN
 
     WHILE @n > 0
     BEGIN
-        SET @result = @result + CAST(@a AS VARCHAR(10)) + ', '; --CAST zamiana typów zmiennych
+        SET @result = @result + CAST(@a AS VARCHAR(10)) + ', '; --CAST zamiana typÃ³w zmiennych
         SET @a = @a + @b;
         SET @b = @a - @b;
         SET @n = @n - 1;
@@ -41,8 +41,8 @@ GO
 EXEC dbo.Fibonacciciag2 4;
 
 
---2.Napisz trigger DML, który po wprowadzeniu danych do tabeli Persons zmodyfikuje nazwisko tak, aby by³o napisane du¿ymi literami.  
---inserted to specjalna tabela, która jest dostêpna wewn¹trz triggera i zawiera wiersze dodane przez ostatni¹ operacjê INSERT
+--2.Napisz trigger DML, ktÃ³ry po wprowadzeniu danych do tabeli Persons zmodyfikuje nazwisko tak, aby byÂ³o napisane duÂ¿ymi literami.  
+--inserted to specjalna tabela, ktÃ³ra jest dostÃªpna wewnÂ¹trz triggera i zawiera wiersze dodane przez ostatniÂ¹ operacjÃª INSERT
 
 /*CREATE TRIGGER duzenazwisko
 ON Person.Person
@@ -84,7 +84,7 @@ FROM Person.ContactType
 WHERE Person.ContactType.Name = 'ktos';
 */
 
---3.Przygotuj trigger ‘taxRateMonitoring’, który wyœwietli komunikat o b³êdzie, je¿eli nast¹pi zmiana wartoœci w polu ‘TaxRate’ o wiêcej ni¿ 30%.
+--3.Przygotuj trigger â€˜taxRateMonitoringâ€™, ktÃ³ry wyÅ“wietli komunikat o bÂ³Ãªdzie, jeÂ¿eli nastÂ¹pi zmiana wartoÅ“ci w polu â€˜TaxRateâ€™ o wiÃªcej niÂ¿ 30%.
 
 /*
 CREATE TRIGGER taxRateMonitoring
@@ -100,7 +100,7 @@ BEGIN
     )
     BEGIN
          DECLARE @ErrorMessage NVARCHAR(1000);
-         SET @ErrorMessage = 'Zmiana wartoœci w polu TaxRate o wiêcej ni¿ 30'
+         SET @ErrorMessage = 'Zmiana wartoÅ“ci w polu TaxRate o wiÃªcej niÂ¿ 30'
          RAISERROR(@ErrorMessage, 16, 1);
     END
 END;
