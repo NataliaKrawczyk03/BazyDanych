@@ -1,6 +1,6 @@
---1. Napisz zapytanie, które wykorzystuje transakcjê (zaczyna j¹), a nastêpnie 
---aktualizuje cenê produktu o ProductID równym 680 w tabeli Production.Product
- --o 10%inastêpnie zatwierdza transakcjê.
+--1. Napisz zapytanie, ktÃ³re wykorzystuje transakcjÄ™ (zaczyna jÄ…), a nastÄ™pnie 
+--aktualizuje cenÄ™ produktu o ProductID rÃ³wnym 680 w tabeli Production.Product
+ --o 10%inastÄ™pnie zatwierdza transakcjÄ™.
 
 USE AdventureWorks2022;
  
@@ -26,15 +26,15 @@ SELECT
 FROM Production.Product
 WHERE ProductID = 680;
 
---2.Napisz zapytanie, które zaczyna transakcjê, usuwa produkt o ProductID równym
- --707 z tabeli Production. Product, ale nastêpnie wycofuje transakcjê.
+--2.Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™, usuwa produkt o ProductID rÃ³wnym
+ --707 z tabeli Production. Product, ale nastÄ™pnie wycofuje transakcjÄ™.
 
 SELECT * FROM Production.Product
 WHERE ProductID = 707;
 
 BEGIN TRANSACTION;
 
--- Usuniêcie 
+-- UsuniÄ™cie 
 DELETE FROM Production.Product
 WHERE ProductID = 707;
 
@@ -45,7 +45,7 @@ WHERE ProductID = 707;
 -- Wycofanie
 ROLLBACK TRANSACTION;
 
---3.Napisz zapytanie, które zaczyna transakcjê, dodaje nowy produkt do tabeli Production.Product, a nastêpnie zatwierdza transakcjê.
+--3.Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™, dodaje nowy produkt do tabeli Production.Product, a nastÄ™pnie zatwierdza transakcjÄ™.
 
 BEGIN TRANSACTION;
 
@@ -112,10 +112,10 @@ WHERE Name = 'New Product';
 
 COMMIT TRANSACTION;
 
---4.Napisz zapytanie, które zaczyna transakcjê i aktualizuje StandardCost wszystkich
- --produktów w tabeli Production.Product o 10%, je¿eli suma wszystkich
+--4.Napisz zapytanie, ktÃ³re zaczyna transakcjÄ™ i aktualizuje StandardCost wszystkich
+ --produktÃ³w w tabeli Production.Product o 10%, jeÅ¼eli suma wszystkich
  --StandardCost po aktualizacji nie przekracza 50000. W przeciwnym razie zapytanie
- --powinno wycofaæ transakcjê.
+ --powinno wycofaÄ‡ transakcjÄ™.
 
  BEGIN TRANSACTION;
 
@@ -130,18 +130,18 @@ SELECT @TotalStandardCost = SUM(StandardCost) FROM Production.Product;
 IF @TotalStandardCost <= 50000
 BEGIN
     COMMIT;
-    PRINT 'Transakcja siê powiod³a, ³¹czny koszt to:'+ CAST(@TotalStandardCost AS NVARCHAR(50));
+    PRINT 'Transakcja siÄ™ powiodÅ‚a, Å‚Ä…czny koszt to:'+ CAST(@TotalStandardCost AS NVARCHAR(50));
 END
 ELSE
 BEGIN
     ROLLBACK;
-    PRINT 'Transakcja siê nie powiod³a, ³¹czny koszt to: ' + CAST(@TotalStandardCost AS NVARCHAR(50));
+    PRINT 'Transakcja siÄ™ nie powiodÅ‚a, Å‚Ä…czny koszt to: ' + CAST(@TotalStandardCost AS NVARCHAR(50));
 END;
 
 
---5.Napisz zapytanie SQL, które zaczyna transakcjê i próbuje dodaæ nowy produkt do
- --tabeli Production.Product. Jeœli ProductNumber ju¿ istnieje w tabeli, zapytanie
- --powinno wycofaæ transakcjê.
+--5.Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i prÃ³buje dodaÄ‡ nowy produkt do
+ --tabeli Production.Product. JeÅ›li ProductNumber juÅ¼ istnieje w tabeli, zapytanie
+ --powinno wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION;
 
@@ -153,7 +153,7 @@ IF EXISTS (SELECT * FROM Production.Product WHERE ProductNumber = @ProductNumber
 BEGIN
     
     ROLLBACK;
-    PRINT 'Transakcja siê nie powiod³a: ProductNumber ju¿ istnieje.';
+    PRINT 'Transakcja siÄ™ nie powiodÅ‚a: ProductNumber juÅ¼ istnieje.';
 END
 ELSE
 BEGIN
@@ -210,35 +210,35 @@ BEGIN
     );
    
     ROLLBACK;
-    PRINT 'Transakcja siê powiod³a: Produkt zosta³ dodany.';
+    PRINT 'Transakcja siÄ™ powiodÅ‚a: Produkt zostaÅ‚ dodany.';
 END;
 
 
---6.Napisz zapytanie SQL, które zaczyna transakcjê i aktualizuje wartoœæ OrderQty
- --dla ka¿dego zamówienia w tabeli Sales.SalesOrderDetail. Je¿eli którykolwiek z
- --zamówieñ maOrderQty równ¹ 0, zapytanie powinno wycofaæ transakcjê.
+--6.Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i aktualizuje wartoÅ›Ä‡ OrderQty
+ --dla kaÅ¼dego zamÃ³wienia w tabeli Sales.SalesOrderDetail. JeÅ¼eli ktÃ³rykolwiek z
+ --zamÃ³wieÅ„ maOrderQty rÃ³wnÄ… 0, zapytanie powinno wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION;
 
 IF EXISTS (SELECT * FROM Sales.SalesOrderDetail WHERE OrderQty = 0)
 BEGIN
     ROLLBACK;
-    PRINT 'Transakcja siê nie powiod³a: Jeden z rekordów ma OrderQty równ¹ 0.';
+    PRINT 'Transakcja siÄ™ nie powiodÅ‚a: Jeden z rekordÃ³w ma OrderQty rÃ³wnÄ… 0.';
 END
 ELSE
 BEGIN
     UPDATE Sales.SalesOrderDetail
-    SET OrderQty = OrderQty + 1  ; -- przyk³adowa aktualizacja
+    SET OrderQty = OrderQty + 1  ; -- przykÅ‚adowa aktualizacja
 
     COMMIT;
-    PRINT 'Transakcja siê powiod³a: OrderQty zosta³y zaktualizowane.';
+    PRINT 'Transakcja siÄ™ powiodÅ‚a: OrderQty zostaÅ‚y zaktualizowane.';
 END;
 
 
---7.Napisz zapytanie SQL, które zaczyna transakcjê i usuwa wszystkie produkty,
- --których StandardCost jest wy¿szy ni¿ œredni koszt wszystkich produktów w tabeli
- --Production.Product. Je¿eli liczba produktów do usuniêcia przekracza 10,
- --zapytanie powinno wycofaæ transakcjê.
+--7.Napisz zapytanie SQL, ktÃ³re zaczyna transakcjÄ™ i usuwa wszystkie produkty,
+ --ktÃ³rych StandardCost jest wyÅ¼szy niÅ¼ Å›redni koszt wszystkich produktÃ³w w tabeli
+ --Production.Product. JeÅ¼eli liczba produktÃ³w do usuniÄ™cia przekracza 10,
+ --zapytanie powinno wycofaÄ‡ transakcjÄ™.
 
 BEGIN TRANSACTION;
 
@@ -253,7 +253,7 @@ WHERE StandardCost > @AverageStandardCost;
 IF @ProductsToDeleteCount > 10
 BEGIN
     ROLLBACK;
-    PRINT 'Transakcja siê nie powiod³a: Liczba produktów do usuniêcia przekracza 10. Wynosi:'+ CAST(@ProductsToDeleteCount AS NVARCHAR(50));
+    PRINT 'Transakcja siÄ™ nie powiodÅ‚a: Liczba produktÃ³w do usuniÄ™cia przekracza 10. Wynosi:'+ CAST(@ProductsToDeleteCount AS NVARCHAR(50));
 END
 ELSE
 BEGIN
@@ -261,5 +261,5 @@ BEGIN
     WHERE StandardCost > @AverageStandardCost;
 
     COMMIT;
-    PRINT 'Transakcja siê powiod³a: Produkty zosta³y usuniête.';
+    PRINT 'Transakcja siÄ™ powiodÅ‚a: Produkty zostaÅ‚y usuniÄ™te.';
 END;
