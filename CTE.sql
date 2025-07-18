@@ -1,7 +1,7 @@
 /*
-1.Wykorzystuj¹c wyra¿enie CTE zbuduj zapytanie, które znajdzie informacje na temat stawki 
-pracownika oraz jego danych, a nastêpnie zapisze je do tabeli tymczasowej 
-TempEmployeeInfo. Rozwi¹¿ w oparciu o AdventureWorks.
+1.Wykorzystujac wyrazenie CTE zbuduj zapytanie, ktÃ³re znajdzie informacje na temat stawki 
+pracownika oraz jego danych, a nastÃªpnie zapisze je do tabeli tymczasowej 
+TempEmployeeInfo. Rozwiaz w oparciu o AdventureWorks.
 */
 USE AdventureWorks2022;
 
@@ -26,7 +26,7 @@ FROM EmployeeCTE;
 SELECT * FROM #TempEmployeeInfo;
 
 
---2.Uzyskaj informacje na temat przychodów ze sprzeda¿y wed³ug firmy i kontaktu (za pomoc¹ CTE i bazy AdventureWorksL).
+--2.Uzyskaj informacje na temat przychodÃ³w ze sprzedaÂ¿y wedÂ³ug firmy i kontaktu (za pomocÂ¹ CTE i bazy AdventureWorksL).
 USE AdventureWorksLT2019;
 
 WITH Coandrev AS (
@@ -46,7 +46,7 @@ FROM Coandrev;
 SELECT * FROM #Companyinfo;
 
 
---3.Napisz zapytanie, które zwróci wartoœæ sprzeda¿y dla poszczególnych kategorii produktów
+--3.Napisz zapytanie, ktÃ³re zwrÃ³ci wartoÅ“Ã¦ sprzedaÂ¿y dla poszczegÃ³lnych kategorii produktÃ³w
 WITH CategoryValue AS (
 	SELECT
 		pc.Name AS Category,
